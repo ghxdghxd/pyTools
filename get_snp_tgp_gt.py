@@ -19,15 +19,15 @@ input:
 import sys
 import pandas as pd
 # import glob
-
-tgp_vcf = sys.argv[1]
-out_file = sys.argv[2]
+snp = sys.argv[1]
+tgp_vcf = sys.argv[2]
+out_file = sys.argv[3]
 
 # files = glob.glob("/share/data1/TGP/ALL.chr*")
 
-loci = pd.read_csv("~/Projects/genokon/pop/snp.txt", sep="\t", header=None)
+loci = pd.read_csv(snp, sep="\t", header=None)
 loci.columns = ["CHROM", "POS", "REF", "ALT"]
-loci["ID"] = loci.apply(lambda x: ":".join([x.CHROM, str(x.POS), x.REF, x.ALT]), 1)
+loci["ID"] = loci.apply(lambda x: ":".join([str(x.CHROM), str(x.POS), x.REF, x.ALT]), 1)
 
 china = pd.read_csv("~/genokon/pop/EAS.panel", sep="\t", header=None)
 item = ['CHROM', 'POS', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO']
